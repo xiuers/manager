@@ -8,19 +8,20 @@ Vue.use(VueRouter);
 // 导入组件
 import login from '../components/login.vue';
 import index from '../components/index.vue';
+import users from '../components/users.vue';
 
 // 实例化路由对象
 let router = new VueRouter({
     routes: [{
-        // 重定向登录页
-        path: '/',
-        redirect: login
-    }, {
         path: '/login',
         component: login
     }, {
-        path: '/index',
-        component: index
+        path: '/',
+        component: index,
+        children: [{
+            path: 'users',
+            component: users
+        }]
     }]
 });
 
@@ -31,6 +32,7 @@ router.beforeEach((to, from, next) => {
     if (to.path == '/login') {
         // 直接通过
         next();
+        // 如果这里的括号里放了"/",就会陷入类似无限递归的错误
     } else {
         // 不是登录页
         if (window.sessionStorage.getItem('token')) {

@@ -63,7 +63,7 @@ export default {
               // 保存token
               window.sessionStorage.setItem('token',res.data.data.token)
               // 去首页  代码式跳转，编程式导航，实际页面没有跳转
-              this.$router.push('/index');
+              this.$router.push('/');
             }
           })
         } else {
