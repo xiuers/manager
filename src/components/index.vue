@@ -26,17 +26,6 @@
 
 <script>
 export default {
-  // 根据缓存判断没用到数据所以用这个钩子就可以了
-  beforeCreate() {
-    if (window.sessionStorage.getItem("token")) {
-      // token存在，不用管
-    } else {
-      // 提示用户
-      this.$message.warning("不登录，人家不让你访问");
-      // 回到登录页，编程式导航
-      this.$router.push("/login");
-    }
-  },
   methods: {
     logout() {
       this.$confirm("你真的真的真的要走吗？(︶︹︺)", "提示", {
