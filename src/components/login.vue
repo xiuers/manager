@@ -38,21 +38,36 @@ export default {
         ],
         password: [
           // required必填项 message提示信息 trigger触发方式
-          { required: true, message: "请正确输入用户名", trigger: "blur" },
+          { required: true, message: "请正确输入密码", trigger: "blur" },
           { min: 6, max: 12, message: "长度在6到12个字符", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
+    // 提交前的数据验证
     submitForm(formName) {
+      // 先初步判断数据格式是否正确
       this.$refs[formName].validate(valid => {
+        // 格式正确
         if (valid) {
-          // alert("submit!");
-          // 数据正确
+          // 然后再调用接口判断数据是否真的正确
+          this.$http.post("login",this.formData).then(res=>{
+            // console.log(res);
+            if (res.data.meta.status == 400) {
+              // 数据错误，弹框提示错误原因
+              this.$message.error(res.data.meta.msg);
+            }else{
+              // 数据正确，弹框提示登录成功
+              this.$message.success(res.data.meta.msg);
+              // 保存token
+              window.sessionStorage.setItem('token',res.data.data.token)
+              // 去首页  代码式跳转，编程式导航，实际页面没有跳转
+              this.$router.push('/index');
+            }
+          })
         } else {
-          // console.log("error submit!!");
-          // 数据错误
+          // 格式错误
           this.$message.error('请正确输入用户名和密码！');
           return false;
         }

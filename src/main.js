@@ -12,6 +12,9 @@ Vue.use(ElementUI);
 
 // 导入路由
 import router from './libs/router.js';
+// 导入抽取的aixos插件
+import http from './libs/http.js';
+Vue.use(http);
 
 new Vue({
   render: h => h(App),
