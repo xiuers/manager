@@ -30,8 +30,8 @@
       <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
       <el-table-column prop="mobile" label="电话"></el-table-column>
       <el-table-column label="用户状态">
-        <template>
-          <el-switch active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.mg_state" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -62,6 +62,9 @@ export default {
       },
       tableData: []
     };
+  },
+  methods: {
+      
   },
   // 数据获取
   async created() {
