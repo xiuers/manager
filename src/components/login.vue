@@ -54,13 +54,9 @@ export default {
           // 然后再调用接口判断数据是否真的正确
           this.$http.post("login",this.formData).then(res=>{
             // console.log(res);
-            if (res.data.meta.status == 400) {
-              // 数据错误，弹框提示错误原因
-              this.$message.error(res.data.meta.msg);
-            }else{
-              // 数据正确，弹框提示登录成功
-              this.$message.success(res.data.meta.msg);
-              // 保存token
+            if (res.data.meta.status == 200) {
+              // 因为响应拦截器统一设置了弹框，所以这里不需要再设置弹框提示
+              // 数据正确，保存token
               window.sessionStorage.setItem('token',res.data.data.token)
               // 去首页  代码式跳转，编程式导航，实际页面没有跳转
               this.$router.push('/');
